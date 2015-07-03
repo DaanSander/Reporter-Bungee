@@ -11,9 +11,13 @@ import java.io.IOException;
  */
 public class Reporter extends Plugin {
 
-    public Configuration configuration;
+    
+
+    public Configuration configuration = null;
+    private static Reporter plugin = null;
 
     public void onEnable() {
+        plugin = this;
         System.out.println("Loading Configuration...");
         try {
             configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "config.yml"));
@@ -22,5 +26,13 @@ public class Reporter extends Plugin {
             e.printStackTrace();
             System.out.println("An error ocurred while trying to load the configuration file");
         }
+    }
+
+    public Configuration getConfiguration() {
+        return getConfiguration();
+    }
+
+    public static Reporter getPlugin() {
+        return plugin;
     }
 }
