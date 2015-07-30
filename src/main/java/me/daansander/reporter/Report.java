@@ -1,3 +1,5 @@
+package me.daansander.reporter;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +23,17 @@ public class Report {
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
         this.date = f.format(date);
         this.rdate = date;
+
+        int next = 1;
+        if (Reporter.getPlugin().getConfiguration().getSection(reported) != null) {
+            for (String report : Reporter.getPlugin().getConfiguration().getSection(reported).getKeys()) {
+                next++;
+            }
+        }
+        Reporter.getPlugin().getConfiguration().set(reported + "." + next + ".reason", "" + details);
+        Reporter.getPlugin().getConfiguration().set(reported + "." + next + ".reporter", "" + reporter);
+        Reporter.getPlugin().getConfiguration().set(reported + "." + next + ".date", "" + f.format(date));
+        Reporter.getPlugin().saveConfig();
     }
 
     public ArrayList<Report> getReporters(String reporter) {
